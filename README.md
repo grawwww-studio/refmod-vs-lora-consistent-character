@@ -2,7 +2,7 @@
 
 Workflows, prompts and training notes for the video "MiniMax H3 Consistent Character: RefMod (3 s) vs LoRA (46 min) vs Picture".
 
-- Video: VIDEO_URL_SLOT
+- Video: https://youtu.be/TcdI7esvcRU
 
 Everything we used to make the comparison, except the model weights, our character's LoRA files and its training pictures (not shared).
 The character in the video, Lara, is fictional and AI-generated; no real person appears.
