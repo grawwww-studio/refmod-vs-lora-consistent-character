@@ -1,0 +1,928 @@
+{
+ "id": "00000000-0000-0000-0000-000000000000",
+ "revision": 0,
+ "last_node_id": 312,
+ "last_link_id": 22,
+ "nodes": [
+  {
+   "id": 119,
+   "type": "VAELoader",
+   "pos": [
+    40,
+    60
+   ],
+   "size": [
+    330,
+    96
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      4,
+      16
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_video_vae_fp16.safetensors"
+   ]
+  },
+  {
+   "id": 120,
+   "type": "VAELoader",
+   "pos": [
+    40,
+    196
+   ],
+   "size": [
+    330,
+    96
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      2,
+      17
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_audio_vae_fp32.safetensors"
+   ]
+  },
+  {
+   "id": 121,
+   "type": "VAEDecodeAudio",
+   "pos": [
+    2910,
+    60
+   ],
+   "size": [
+    330,
+    94
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 1
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 2
+    }
+   ],
+   "outputs": [
+    {
+     "name": "AUDIO",
+     "type": "AUDIO",
+     "links": [
+      14
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecodeAudio"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 122,
+   "type": "VAEDecode",
+   "pos": [
+    2910,
+    194
+   ],
+   "size": [
+    330,
+    94
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 3
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 4
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      13
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 123,
+   "type": "KSamplerSelect",
+   "pos": [
+    40,
+    332
+   ],
+   "size": [
+    330,
+    96
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      8
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSamplerSelect"
+   },
+   "widgets_values": [
+    "euler"
+   ]
+  },
+  {
+   "id": 124,
+   "type": "BasicScheduler",
+   "pos": [
+    860,
+    60
+   ],
+   "size": [
+    330,
+    148
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 5
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      9
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicScheduler"
+   },
+   "widgets_values": [
+    "simple",
+    8,
+    1.0
+   ]
+  },
+  {
+   "id": 125,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    2500,
+    60
+   ],
+   "size": [
+    330,
+    166
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise",
+     "type": "NOISE",
+     "link": 6
+    },
+    {
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 7
+    },
+    {
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 8
+    },
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 9
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 10
+    }
+   ],
+   "outputs": [
+    {
+     "name": "output",
+     "type": "LATENT",
+     "links": [
+      1,
+      3
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": [],
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SamplerCustomAdvanced"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 126,
+   "type": "BasicGuider",
+   "pos": [
+    2090,
+    60
+   ],
+   "size": [
+    330,
+    94
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 11
+    },
+    {
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 12
+    }
+   ],
+   "outputs": [
+    {
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      7
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicGuider"
+   },
+   "widgets_values": []
+  },
+  {
+   "id": 127,
+   "type": "UNETLoader",
+   "pos": [
+    40,
+    468
+   ],
+   "size": [
+    330,
+    122
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      5,
+      20
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+    "default"
+   ]
+  },
+  {
+   "id": 128,
+   "type": "CLIPLoader",
+   "pos": [
+    40,
+    630
+   ],
+   "size": [
+    330,
+    148
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      15
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "minimax",
+    "default"
+   ]
+  },
+  {
+   "id": 129,
+   "type": "RandomNoise",
+   "pos": [
+    40,
+    818
+   ],
+   "size": [
+    330,
+    122
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      6
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "RandomNoise"
+   },
+   "widgets_values": [
+    4103,
+    "fixed"
+   ]
+  },
+  {
+   "id": 130,
+   "type": "CreateVideo",
+   "pos": [
+    3320,
+    60
+   ],
+   "size": [
+    330,
+    198
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 13
+    },
+    {
+     "name": "audio",
+     "type": "AUDIO",
+     "link": 14
+    }
+   ],
+   "outputs": [
+    {
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      22
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CreateVideo"
+   },
+   "widgets_values": [
+    24.0,
+    8,
+    "sRGB",
+    "none"
+   ]
+  },
+  {
+   "id": 136,
+   "type": "MiniMaxH3ReferenceToVideo",
+   "pos": [
+    860,
+    248
+   ],
+   "size": [
+    330,
+    272
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 15
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 16
+    },
+    {
+     "name": "audio_vae",
+     "type": "VAE",
+     "link": 17
+    },
+    {
+     "name": "ref_images.ref_image_0",
+     "type": "IMAGE",
+     "link": 18
+    }
+   ],
+   "outputs": [
+    {
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      12
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      10
+     ],
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3ReferenceToVideo"
+   },
+   "widgets_values": [
+    "subject_definitions:\n<Subject 1> is the adult woman shown on <Picture 1>, a character sheet of one woman (front, side, back and face close-up, same person, plain grey backdrop). Her face, facial proportions, freckles and hairstyle come from the face close-up and the other views. Copy none of the grey backdrop, panel layout, lighting, framing or clothing of the sheet, and never show the sheet itself. Facial identity details: a young woman with a straight black shoulder-length bob with a centre parting.\ndetailed_description:\nCamera: medium close-up from the chest up, 50mm lens, locked-off at eye level, centred.\nSetting and lighting: a bright studio with an off-white wall and a wooden shelf behind her, soft window light from camera right.\nTexture: visible skin pores, natural sheen, a fine film grain.\n[Shot 1] <Subject 1> wears a white oversized cotton hoodie with the hood down. She talks calmly to the camera, with small head movements and expressive eyebrows, and gives a small nod and a slight smile at the end. No on-screen text, no speech.\noverall_soundscape:\nquiet natural room tone.\nnon_diegetic_music:\nN/A",
+    1152,
+    640,
+    124,
+    "match"
+   ]
+  },
+  {
+   "id": 142,
+   "type": "MiniMaxH3SigmaShift",
+   "pos": [
+    1680,
+    60
+   ],
+   "size": [
+    330,
+    122
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 19
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      11
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3SigmaShift"
+   },
+   "widgets_values": [
+    12.0,
+    3.0
+   ]
+  },
+  {
+   "id": 143,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    860,
+    560
+   ],
+   "size": [
+    330,
+    122
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 20
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      21
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
+    1.0
+   ]
+  },
+  {
+   "id": 144,
+   "type": "Ref2VAVSAGatePatch",
+   "pos": [
+    1270,
+    60
+   ],
+   "size": [
+    330,
+    122
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 21
+    }
+   ],
+   "outputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "links": [
+      19
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "Ref2VAVSAGatePatch"
+   },
+   "widgets_values": [
+    "fasth3_vsa_gate.safetensors",
+    0.75
+   ]
+  },
+  {
+   "id": 300,
+   "type": "LoadImage",
+   "pos": [
+    440,
+    60
+   ],
+   "size": [
+    340,
+    330
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      18
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": [],
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "character_sheet.png",
+    "image"
+   ]
+  },
+  {
+   "id": 312,
+   "type": "SaveVideo",
+   "pos": [
+    3730,
+    60
+   ],
+   "size": [
+    330,
+    148
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "link": 22
+    }
+   ],
+   "outputs": [
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "links": [],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SaveVideo"
+   },
+   "widgets_values": [
+    "h3/picture",
+    "auto",
+    "auto"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   125,
+   0,
+   121,
+   0,
+   "LATENT"
+  ],
+  [
+   2,
+   120,
+   0,
+   121,
+   1,
+   "VAE"
+  ],
+  [
+   3,
+   125,
+   0,
+   122,
+   0,
+   "LATENT"
+  ],
+  [
+   4,
+   119,
+   0,
+   122,
+   1,
+   "VAE"
+  ],
+  [
+   5,
+   127,
+   0,
+   124,
+   0,
+   "MODEL"
+  ],
+  [
+   6,
+   129,
+   0,
+   125,
+   0,
+   "NOISE"
+  ],
+  [
+   7,
+   126,
+   0,
+   125,
+   1,
+   "GUIDER"
+  ],
+  [
+   8,
+   123,
+   0,
+   125,
+   2,
+   "SAMPLER"
+  ],
+  [
+   9,
+   124,
+   0,
+   125,
+   3,
+   "SIGMAS"
+  ],
+  [
+   10,
+   136,
+   1,
+   125,
+   4,
+   "LATENT"
+  ],
+  [
+   11,
+   142,
+   0,
+   126,
+   0,
+   "MODEL"
+  ],
+  [
+   12,
+   136,
+   0,
+   126,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   13,
+   122,
+   0,
+   130,
+   0,
+   "IMAGE"
+  ],
+  [
+   14,
+   121,
+   0,
+   130,
+   1,
+   "AUDIO"
+  ],
+  [
+   15,
+   128,
+   0,
+   136,
+   0,
+   "CLIP"
+  ],
+  [
+   16,
+   119,
+   0,
+   136,
+   1,
+   "VAE"
+  ],
+  [
+   17,
+   120,
+   0,
+   136,
+   2,
+   "VAE"
+  ],
+  [
+   18,
+   300,
+   0,
+   136,
+   3,
+   "IMAGE"
+  ],
+  [
+   19,
+   144,
+   0,
+   142,
+   0,
+   "MODEL"
+  ],
+  [
+   20,
+   127,
+   0,
+   143,
+   0,
+   "MODEL"
+  ],
+  [
+   21,
+   143,
+   0,
+   144,
+   0,
+   "MODEL"
+  ],
+  [
+   22,
+   130,
+   0,
+   312,
+   0,
+   "VIDEO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.6,
+   "offset": [
+    0,
+    0
+   ]
+  }
+ },
+ "version": 0.4
+}

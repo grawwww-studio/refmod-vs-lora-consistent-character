@@ -1,0 +1,9 @@
+[general]
+resolution = [1024, 1024]
+batch_size = 1
+enable_bucket = true
+bucket_no_upscale = false
+
+[[datasets]]
+image_jsonl_file = "/workspace/h3/items.jsonl"
+cache_directory = "/workspace/h3/cache"

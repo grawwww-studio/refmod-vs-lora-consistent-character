@@ -1,0 +1,269 @@
+{
+ "119": {
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Cargar VAE"
+  }
+ },
+ "120": {
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Cargar VAE"
+  }
+ },
+ "121": {
+  "inputs": {
+   "samples": [
+    "125",
+    0
+   ],
+   "vae": [
+    "120",
+    0
+   ]
+  },
+  "class_type": "VAEDecodeAudio",
+  "_meta": {
+   "title": "VAEDecodeAudio"
+  }
+ },
+ "122": {
+  "inputs": {
+   "samples": [
+    "125",
+    0
+   ],
+   "vae": [
+    "119",
+    0
+   ]
+  },
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "Decodificaci\u00f3n VAE"
+  }
+ },
+ "123": {
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "class_type": "KSamplerSelect",
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "124": {
+  "inputs": {
+   "scheduler": "simple",
+   "steps": 8,
+   "denoise": 1.0,
+   "model": [
+    "127",
+    0
+   ]
+  },
+  "class_type": "BasicScheduler",
+  "_meta": {
+   "title": "ProgramadorB\u00e1sico"
+  }
+ },
+ "125": {
+  "inputs": {
+   "noise": [
+    "129",
+    0
+   ],
+   "guider": [
+    "126",
+    0
+   ],
+   "sampler": [
+    "123",
+    0
+   ],
+   "sigmas": [
+    "124",
+    0
+   ],
+   "latent_image": [
+    "136",
+    1
+   ]
+  },
+  "class_type": "SamplerCustomAdvanced",
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "126": {
+  "inputs": {
+   "model": [
+    "142",
+    0
+   ],
+   "conditioning": [
+    "136",
+    0
+   ]
+  },
+  "class_type": "BasicGuider",
+  "_meta": {
+   "title": "Gu\u00edaB\u00e1sica"
+  }
+ },
+ "127": {
+  "inputs": {
+   "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  },
+  "class_type": "UNETLoader",
+  "_meta": {
+   "title": "Cargar Modelo de Difusi\u00f3n"
+  }
+ },
+ "128": {
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "Cargar CLIP"
+  }
+ },
+ "129": {
+  "inputs": {
+   "noise_seed": 4103
+  },
+  "class_type": "RandomNoise",
+  "_meta": {
+   "title": "Ruido aleatorio"
+  }
+ },
+ "130": {
+  "inputs": {
+   "fps": 24.0,
+   "bit_depth": 8,
+   "color_space": "sRGB",
+   "codec": "none",
+   "images": [
+    "122",
+    0
+   ],
+   "audio": [
+    "121",
+    0
+   ]
+  },
+  "class_type": "CreateVideo",
+  "_meta": {
+   "title": "Crear video"
+  }
+ },
+ "136": {
+  "inputs": {
+   "prompt": "subject_definitions:\n<Subject 1> is the adult woman shown on <Picture 1>, a character sheet of one woman (front, side, back and face close-up, same person, plain grey backdrop). Her face, facial proportions, freckles and hairstyle come from the face close-up and the other views. Copy none of the grey backdrop, panel layout, lighting, framing or clothing of the sheet, and never show the sheet itself. Facial identity details: a young woman with a straight black shoulder-length bob with a centre parting.\ndetailed_description:\nCamera: medium close-up from the chest up, 50mm lens, locked-off at eye level, centred.\nSetting and lighting: a bright studio with an off-white wall and a wooden shelf behind her, soft window light from camera right.\nTexture: visible skin pores, natural sheen, a fine film grain.\n[Shot 1] <Subject 1> wears a white oversized cotton hoodie with the hood down. She talks calmly to the camera, with small head movements and expressive eyebrows, and gives a small nod and a slight smile at the end. No on-screen text, no speech.\noverall_soundscape:\nquiet natural room tone.\nnon_diegetic_music:\nN/A",
+   "width": 1152,
+   "height": 640,
+   "length": 124,
+   "ref_image_size": "match",
+   "clip": [
+    "128",
+    0
+   ],
+   "vae": [
+    "119",
+    0
+   ],
+   "audio_vae": [
+    "120",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "300",
+    0
+   ]
+  },
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "_meta": {
+   "title": "MiniMax H3 Referencia a Video"
+  }
+ },
+ "142": {
+  "inputs": {
+   "shift_video": 12.0,
+   "shift_audio": 3.0,
+   "model": [
+    "144",
+    0
+   ]
+  },
+  "class_type": "MiniMaxH3SigmaShift",
+  "_meta": {
+   "title": "MiniMax H3 Sigma Shift"
+  }
+ },
+ "143": {
+  "inputs": {
+   "lora_name": "minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
+   "strength_model": 1.0,
+   "model": [
+    "127",
+    0
+   ]
+  },
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "CargadorLoRAModeloSolo"
+  }
+ },
+ "144": {
+  "inputs": {
+   "gate_file": "fasth3_vsa_gate.safetensors",
+   "sparsity": 0.75,
+   "model": [
+    "143",
+    0
+   ]
+  },
+  "class_type": "Ref2VAVSAGatePatch",
+  "_meta": {
+   "title": "Ref2VA VSA Gate Transplant (EXPERIMENTAL)"
+  }
+ },
+ "300": {
+  "inputs": {
+   "image": "character_sheet.png"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Cargar Imagen"
+  },
+  "is_changed": [
+   "9ed972c405a3405881d446d55281eb0ee1f155a12b1e83e4c70207f61686c875"
+  ]
+ },
+ "312": {
+  "inputs": {
+   "filename_prefix": "h3/picture",
+   "format": "auto",
+   "format.codec": "auto",
+   "codec": "auto",
+   "video": [
+    "130",
+    0
+   ]
+  },
+  "class_type": "SaveVideo",
+  "_meta": {
+   "title": "Guardar video"
+  }
+ }
+}

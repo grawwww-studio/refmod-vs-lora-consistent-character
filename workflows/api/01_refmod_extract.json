@@ -1,0 +1,44 @@
+{
+ "1": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "20": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "character_sheet.png"
+  }
+ },
+ "3": {
+  "class_type": "MiniMaxH3RefModExtract",
+  "inputs": {
+   "name": "my_character_full",
+   "mode": "Full Reference",
+   "concept_type": "identity",
+   "background_retention": 0.0,
+   "ref_resolution": 1024,
+   "pool_h": 16,
+   "pool_w": 16,
+   "latent_frames": 1,
+   "identity": 0,
+   "merge": false,
+   "motion_only": false,
+   "multiplier": 1,
+   "max_tokens": 0,
+   "description": "my character",
+   "save": true,
+   "vae": [
+    "1",
+    0
+   ],
+   "extraction_preset": "manual",
+   "budget_policy": "truncate",
+   "refs_image.ref_image_0": [
+    "20",
+    0
+   ]
+  }
+ }
+}
